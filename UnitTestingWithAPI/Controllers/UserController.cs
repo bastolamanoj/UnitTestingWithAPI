@@ -54,7 +54,7 @@ namespace API.Controllers
             var result = await userRepository.UpdateUserAsync(user);
             if (result)
             {
-                return NoContent();
+                return Ok();
             }
             return NotFound("User not found");
         }
