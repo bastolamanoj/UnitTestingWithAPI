@@ -52,8 +52,19 @@ namespace Test.Repository
             result.Should().BeTrue(); // Ensure the result is true  
         }
 
+        [Fact]
+        public async void UserRepository_Delete_ReturnTrue()
+        {
+            // Arrange
+            int id = 3;
 
+            // Act 
+            var results = await userRepository.DeleteUserAsync(id);
+            
+            // Assert
+            results.Should().BeTrue();  
 
+        }
 
     }
 }
