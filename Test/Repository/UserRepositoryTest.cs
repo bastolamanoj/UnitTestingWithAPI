@@ -52,8 +52,44 @@ namespace Test.Repository
             result.Should().BeTrue(); // Ensure the result is true  
         }
 
+        [Theory]
+        [InlineData(1)]
+        public async void UserRepository_GetUserById_ReturnUser(int id) 
+        { 
+             //Arrange
+
+            //Act
+             var user = await userRepository.GetUserByIdAsync(id);
+            //Assert
+            user.Should().NotBeNull(); // Ensure the user is not null
+            user.Should().BeOfType<User>(); // Ensure the user is of type User  
+        }
 
 
+        [Theory]
+        [InlineData(1)]
+        public async void UserRepository_UpdateUser_ReturnTrue(int id)
+        {
+            //Arrange
 
+            //Act
+            var user  = await userRepository.GetUserByIdAsync(id);
+            user.Name = "Updated Name"; // Update the user's name   
+            var result = await userRepository.UpdateUserAsync(user);
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public async void UserRepository_DeleteUser_ReturnTrue(int id) {
+            //Arrange
+
+            //Act
+            var result = await userRepository.DeleteUserAsync(id); 
+            //
+            result.Should().BeTrue(); // Ensure the result is true
+
+        }
     }
 }

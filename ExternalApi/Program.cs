@@ -1,7 +1,6 @@
 
 using API.Data;
 using API.Repository;
-using API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +9,6 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseSqlite("Data Source = UnitTestDB.db"));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddHttpClient<IUserService, UserServices>();
 builder.Services.AddOutputCache(options =>
 {
     options.AddBasePolicy(policy => policy.Expire(TimeSpan.FromMinutes(10)));
