@@ -44,6 +44,9 @@ namespace Test.Repository
         {
             // Arrange
             var user = A.Fake<User>();
+            user.Id = 1;
+            user.Name="Test User";
+            user.Email = "Testemail";
 
             //act
             var result = await userRepository.CreateUserAsync(user);
@@ -55,11 +58,12 @@ namespace Test.Repository
         [Theory]
         [InlineData(1)]
         public async void UserRepository_GetUserById_ReturnUser(int id) 
-        { 
-             //Arrange
+        {
+            //Arrange
+            //var user = new User { Name = "Test User", Email = "Testemail" };
 
             //Act
-             var user = await userRepository.GetUserByIdAsync(id);
+            var user = await userRepository.GetUserByIdAsync(id);
             //Assert
             user.Should().NotBeNull(); // Ensure the user is not null
             user.Should().BeOfType<User>(); // Ensure the user is of type User  
