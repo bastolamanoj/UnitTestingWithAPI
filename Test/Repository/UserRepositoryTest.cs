@@ -32,7 +32,7 @@ namespace Test.Repository
 
             if (!userDbContext.Users.Any()) // Check if the Users table is empty
             {
-                userDbContext.Users.Add(new User { Name = "Test User", Email = "Testuser@gmail.com" });
+                userDbContext.Users.Add(new User {Id=1, Name = "Test User", Email = "Testuser@gmail.com" });
                 await userDbContext.SaveChangesAsync(); // Save changes to the database
             }
 
@@ -44,7 +44,7 @@ namespace Test.Repository
         {
             // Arrange
             var user = A.Fake<User>();
-            user.Id = 1;
+            user.Id = 2;
             user.Name="Test User";
             user.Email = "Testemail";
 
@@ -54,9 +54,21 @@ namespace Test.Repository
             //Assert
             result.Should().BeTrue(); // Ensure the result is true  
         }
+        [Fact]
+        public async void UserRepository_GetAllUsers_ReturnListOfUsers()
+        {
+            // Arrange
+
+            // Act
+            var users = await userRepository.GetAllUsersAsync();
+
+            // Assert
+            users.Should().NotBeNull(); // Ensure the users list is not null
+            users.Should().BeOfType<List<User>>(); // Ensure the users are of type List<User>
+        }
 
         [Theory]
-        [InlineData(1)]
+        [InlineData(2)]
         public async void UserRepository_GetUserById_ReturnUser(int id) 
         {
             //Arrange

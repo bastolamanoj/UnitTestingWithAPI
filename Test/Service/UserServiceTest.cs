@@ -19,7 +19,6 @@ namespace Test.Service
             // Arrange
             var user = A.Fake<User>();
 
-
             // Act
             var client = Helper.CustomFakeHttpClient.FakeHttpClient(true);
             var userService = new UserServices(client);
@@ -29,6 +28,18 @@ namespace Test.Service
             result.Should().BeTrue(); // Ensure the result is true  
         }
 
+        [Fact]
+        public async void UserService_GetAllUsers_ReturnsListOfUsers()
+        {
+            //Arrange
+            var users = A.Fake<IEnumerable<User>>();
+            // Act
+            var client = Helper.CustomFakeHttpClient.FakeHttpClient(users);
+            var userService = new UserServices(client);
+            var result = await userService.GetAllUsersAsync();
+            // Assert
+            result.Should().BeEquivalentTo(users); // Ensure the result matches the fake data
+        }
 
     }
 }
