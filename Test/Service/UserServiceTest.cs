@@ -41,5 +41,22 @@ namespace Test.Service
             result.Should().BeEquivalentTo(users); // Ensure the result matches the fake data
         }
 
+        [Theory]
+        [InlineData(3)]
+        public async void UserService_GetUserById_ReturnsUser(int id)
+        {
+            // Arrange
+            var user = A.Fake<User>();
+            // Act
+            var client = Helper.CustomFakeHttpClient.FakeHttpClient(user);
+            var userService = new UserServices(client);
+            var result = await userService.GetUserByIdAsync(id);
+            // Assert
+            result.Should().BeEquivalentTo(user); // Ensure the result matches the fake data
+
+
+
+        }
+
     }
 }
