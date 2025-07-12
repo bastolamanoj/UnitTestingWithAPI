@@ -53,9 +53,22 @@ namespace Test.Service
             var result = await userService.GetUserByIdAsync(id);
             // Assert
             result.Should().BeEquivalentTo(user); // Ensure the result matches the fake data
+        }
 
+        [Theory]
+        [InlineData(3)]
+        public async void UserService_UpdateUser_ReturnsTrue(int id)
+        {
+            // Arrange
 
+            // Act 
+            var client = Helper.CustomFakeHttpClient.FakeHttpClient(true);
+            var userService = new UserServices(client); 
+            var user = new User { Id = id, Name = "Test User", Email = "example@gmail.com" };    
+            var result = await userService.UpdateUserAsync(user);
 
+            // Assert   
+            result.Should().BeTrue(); // Ensure the result is true
         }
 
     }
