@@ -71,5 +71,17 @@ namespace Test.Service
             result.Should().BeTrue(); // Ensure the result is true
         }
 
+        [Theory]
+        [InlineData(1)]
+        public async void UserService_DeleteUser_ReturnsTrue(int Id)
+        {
+            // Arrange
+            // Act
+            var client = Helper.CustomFakeHttpClient.FakeHttpClient(true);
+            var userService = new UserServices(client); 
+            var result = await userService.DeleteUserAsync(Id);
+            // Assert
+            result.Should().BeTrue(); // Ensure the result is true
+        }
     }
 }

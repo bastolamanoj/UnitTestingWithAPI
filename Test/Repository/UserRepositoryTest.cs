@@ -44,7 +44,7 @@ namespace Test.Repository
         {
             // Arrange
             var user = A.Fake<User>();
-            user.Id = 2;
+           
             user.Name="Test User";
             user.Email = "Testemail";
 
@@ -83,7 +83,7 @@ namespace Test.Repository
 
 
         [Theory]
-        [InlineData(1)]
+        [InlineData(5)]
         public async void UserRepository_UpdateUser_ReturnTrue(int id)
         {
             //Arrange
@@ -97,7 +97,7 @@ namespace Test.Repository
         }
 
         [Theory]
-        [InlineData(1)]
+        [InlineData(4)]
         public async void UserRepository_DeleteUser_ReturnTrue(int id) {
             //Arrange
 
