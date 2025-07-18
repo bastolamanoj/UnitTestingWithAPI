@@ -68,6 +68,22 @@ namespace API.Controllers
             }
             return NotFound("User not found");
         }
+        
+        [HttpGet("SearchUserByName/{name}")]
+        public async Task<IActionResult> SearchUserByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return BadRequest("Name cannot be empty");
+            }
+            var users = await userRepository.SearchUserByName(name);
+            if (users == null || !users.Any())
+            {
+                return NotFound("No users found with the given name");
+            }
+            return Ok(users);
+        }
 
     }
+
 }

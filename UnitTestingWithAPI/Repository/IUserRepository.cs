@@ -9,5 +9,6 @@ namespace API.Repository
         Task<bool> CreateUserAsync(User user);
         Task<bool> UpdateUserAsync(User user);
         Task<bool> DeleteUserAsync(int id);
+        Task<IEnumerable<User>> SearchUserByName(string Name);
     }
 }

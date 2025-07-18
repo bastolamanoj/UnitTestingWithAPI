@@ -46,7 +46,12 @@ namespace API.Repository
             }
             return false; // User not found
         }
-
+        
+        public async Task<IEnumerable<User>> SearchUserByName(string Name)
+        {
+            var users = await context!.Users.Where(_ => _.Name.Contains(Name)).ToListAsync();
+            return users; // Returns a Task<IEnumerable<User>>
+        }
 
     }
 }

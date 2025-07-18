@@ -52,6 +52,8 @@ namespace Test.Controller
             // Arrange
             var users = A.Fake<List<User>>();
             users.Add(new User { Name ="John Doe", Email="john@example.com"});
+            users.Add(new User { Name = "Johnny Cash", Email="jogny@example.com"});
+            users.Add(new User { Name = "Johnny doe", Email="jogny@example.com"});
             
             // Act
             A.CallTo(() => userRepository.GetAllUsersAsync()).Returns(Task.FromResult(users.AsEnumerable()));
@@ -108,7 +110,26 @@ namespace Test.Controller
             result.Should().NotBeNull(); // Ensure the result is not null
         }
 
+        [Fact]
+        public async void UserController_SearchUserByName_ReturnOK()
+        {
+            // Arrange
+            string searchName = "John";
+            var users = new List<User>
+            {
+                new User { Id = 1, Name = "John Doe", Email = "" },
+                new User { Id = 2, Name = "Jane Doe", Email = "" } ,
+                new User { Id = 3, Name = "Johnny Cash", Email = "" } ,
+            };
 
+            // Act
+            A.CallTo(() => userRepository.SearchUserByName(searchName))
+                .Returns(Task.FromResult(users.Where(u => u.Name.Contains(searchName, StringComparison.OrdinalIgnoreCase))));
+            var result = (OkObjectResult)await userController.SearchUserByName(searchName);
+
+            // Assert
+            result.StatusCode.Should().Be(200); // 200 OK
+        }
 
     }
 }
